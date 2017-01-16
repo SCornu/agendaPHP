@@ -14,7 +14,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="email" class="col-sm-2 control-label">Usuario</label>
+          <label for="email" class="col-sm-2 control-label">Email</label>
           <div class="col-sm-10">
             <input type="email" class="form-control" id="emailRegistro" name="emailRegistro" placeholder="direccion@correo.com" required="true">
           </div>
@@ -41,6 +41,13 @@
       $('#formRegistro').on('submit', function (event) {
         event.preventDefault();
         // console.log($('#formRegistro').serialize());
+        console.log($('#contra').val());
+        if ($('#contra').val() != $('#pass2').val()) {
+          alert('Las contraseñas no coinciden');
+          $('#contra').focus();
+          $('#pass2').val('');
+          return;
+        }
         $.post('Procesamiento/Registro.php',$('#formRegistro').serialize()).done(function (echo) {
           var opcion = echo;
           console.log(opcion);
