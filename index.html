@@ -11,11 +11,11 @@
 		<div class="row">
 			<div class="col-md-8">
 				<h1>Inicio de Session</h1>
-				<form class="form-horizontal" action="index.html" method="post">
+				<form id="inicioSession" class="form-horizontal" action="index.html" method="post">
 					<div class="form-group">
 						<label for="usuario" class="col-sm-2 control-label">Usuario</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" name="usuario" id="usuario" placeholder="Usuario" required="true">
+							<input type="email" class="form-control" name="usuario" id="usuario" placeholder="direccione@email.com" required="true">
 						</div>
 					</div>
 					<div class="form-group">
@@ -27,11 +27,45 @@
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
 							<button type="submit" class="btn btn-primary">Ingresar</button>
+							<button type="button" id="registrar" class="btn btn-warning">Registrar Usuario</button>
 						</div>
 					</div>
 				</form>
+				<div id="errorInicio" class="alert alert-danger" role="alert" hidden="true">
+					<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+					<span class="sr-only">Error:</span>
+					Usuario o contraseña incorrectos.
+				</div>
+				<div id="errorRegistro" class="alert alert-danger" role="alert" hidden="true">
+					<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+					<span class="sr-only">Error:</span>
+					Ya existe un usuario con ese correo registrado.
+				</div>
+				<div id="falloRegistro" class="alert alert-danger" role="alert" hidden="true">
+					<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+					<span class="sr-only">Error:</span>
+					Ocurrio un error en el registro, contacte con el administrador del sistema.
+				</div>
+				<div id="usuarioRegistrado" class="alert alert-info" role="alert" hidden="true">
+					<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+					Usuario Registrado.
+				</div>
+				<!--Modal-->
+				<div id="modalRegistro" class="modal fade" role="dialog"></div>
 			</div>
 		</div>
 	</div>
+	<script>
+		$('#registrar').on('click', function(event){
+			event.preventDefault();
+			// console.log('inicio registro');
+			$('#modalRegistro').modal().load('public/Modals/modalRegistro.html');
+		});
+		$('#inicioSession').on('submit', function(event){
+			event.preventDefault();
+			// console.log('inicio de session');
+			$.post('Procesamiento/LogIn.php',$('#inicioSession').serialize())
+		})
+	</script>
 </body>
 </html>

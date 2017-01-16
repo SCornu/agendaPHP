@@ -1,0 +1,66 @@
+<!--contenido del modal-->
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <h4 class="modal-title">Registro de Nuevo Usuario</h4>
+    </div>
+    <form class="form-horizontal" id="formRegistro">
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="usuario" class="col-sm-2 control-label">Usuario</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="usuarioRegistro" name="usuarioRegistro" placeholder="Usuario" required="true">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email" class="col-sm-2 control-label">Usuario</label>
+          <div class="col-sm-10">
+            <input type="email" class="form-control" id="emailRegistro" name="emailRegistro" placeholder="direccion@correo.com" required="true">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="pass" class="col-sm-2 control-label">Contraseña</label>
+          <div class="col-sm-10">
+            <input type="password" class="form-control" id="contra" name="contra" placeholder="Contraseña" required="true">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="pass" class="col-sm-2 control-label">Repita Contraseña</label>
+          <div class="col-sm-10">
+            <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Contraseña" required="true">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary" id="crearUsuario" name="crearusuario">Registrar usuario</button>
+      </div>
+    </form>
+    <script>
+      $('#formRegistro').on('submit', function (event) {
+        event.preventDefault();
+        // console.log($('#formRegistro').serialize());
+        $.post('Procesamiento/Registro.php',$('#formRegistro').serialize()).done(function (echo) {
+          var opcion = echo;
+          console.log(opcion);
+          switch (opcion) {
+            case '1':
+                console.log('caso 1');
+                $('#errorRegistro').show();
+                $('#modalRegistro .close').click();
+              break;
+            case '2':
+              $('#usuarioRegistrado').show();
+              $('#modalRegistro .close').click();
+              break;
+            case '3':
+              $('#falloRegistro').show();
+              $('#modalRegistro .close').click();
+              break;
+          }
+        });
+      })
+    </script>
+  </div>
+</div>
