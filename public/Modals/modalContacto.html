@@ -1,6 +1,5 @@
 <div class="modal-dialog modal-lg">
   <div class="modal-content">
-
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal">&times;</button>
       <h4 class="modal-title">Registro de Nuevo Conctacto</h4>
@@ -46,7 +45,9 @@
   </div>
 </div>
 <div id="mensaje"></div>
+<script src="public/js/jquery.maskedinput.min.js"></script>
 <script>
+  $('#telefono').mask('(999)-999-9999');
   $('#formContacto').on('submit', function (e) {
     e.preventDefault();
     console.log($('#formContacto').serialize());

@@ -52,16 +52,25 @@
   <script>
     $('#verContactos').on('click', function(e){
       e.preventDefault();
-      console.log('se preciono el boto de ver');
-      $.get('Procesamiento/getContactos.php').done(function (echo) {
-        console.log(echo);
-        $('.resultado').html(echo);
-      })
+      verContactos();
     });
     $('#agregarContacto').on('click', function (e) {
       e.preventDefault();
       console.log('se preciono el boton de agregar');
       $('#modalAgenda').modal().load('public/Modals/modalContacto.html');
+    });
+    $('#bucarContacto').on('click', function (e){
+      $('#modalAgenda').modal().load('public/Modals/modalBusqueda.html');
+    });
+    $('#borrarContacto').on('click', function (e) {
+      e.preventDefault();
+      $('#modalAgenda').modal().load('public/Modals/modalBorrar.html');
     })
+
+    function verContactos() {
+      $.get('Procesamiento/getContactos.php').done(function (echo) {
+        $('.resultado').html(echo);
+      })
+    }
   </script>
 </html>

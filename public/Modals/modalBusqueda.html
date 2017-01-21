@@ -1,0 +1,109 @@
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <h4 class="modal-title">Busqueda de Conctacto</h4>
+    </div>
+    <form class="form-horizontal" id="formBusqueda">
+      <div class="modal-body">
+
+        <div class="form-group">
+          <div class="col-sm-10">
+            <label for="opcion" class="col-sm-2 control-label">Busqueda por</label>
+            <label class="radio-inline">
+              <input type="radio" name="opcion" id="opNombre" value="1"> Nombre
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="opcion" id="opApPaterno" value="2"> Apellido Paterno
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="opcion" id="opApMaterno" value="3"> Apellido Materno
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="nombre" class="col-sm-2 control-label">nombre</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="nombre" name="nombre" placeholder="nombre" required="true" disabled="true">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="apPaterno" class="col-sm-2 control-label">Apellido Paterno</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="apPaterno" name="apPaterno" placeholder="Apellido Paterno" required="true" disabled="true">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="apPaterno" class="col-sm-2 control-label">Apellido Paterno</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="apMaterno" name="apMaterno" placeholder="Apellido Materno" required="true" disabled="true">
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary" id="busquedaUsuario" name="busquedaUsuario">Buscar Conctacto</button>
+      </div>
+
+    </form>
+  </div>
+</div>
+<script>
+  $('#nombre').keyup(function(e) {
+  e.preventDefault();
+  var text = $(this).val();
+  $(this).val(text.toLowerCase());
+  });
+
+  $('#apPaterno').keyup(function(e) {
+  e.preventDefault();
+  var text = $(this).val();
+  $(this).val(text.toLowerCase());
+  });
+
+  $('#apMaterno').keyup(function(e) {
+  e.preventDefault();
+  var text = $(this).val();
+  $(this).val(text.toLowerCase());
+  });
+
+  $('#opNombre').on('click', function(e) {
+  $('#nombre').prop('disabled', false);
+  $('#apPaterno').prop('disabled', true);
+  $('#apMaterno').prop('disabled', true);
+  $('#nombre').val('');
+  $('#apPaterno').val('');
+  $('#apMaterno').val('');
+  });
+
+  $('#opApPaterno').on('click', function(e) {
+  $('#nombre').prop('disabled', true);
+  $('#apPaterno').prop('disabled', false);
+  $('#apMaterno').prop('disabled', true);
+  $('#nombre').val('');
+  $('#apPaterno').val('');
+  $('#apMaterno').val('');
+  });
+
+  $('#opApMaterno').on('click', function(e) {
+  $('#nombre').prop('disabled', true);
+  $('#apPaterno').prop('disabled', true);
+  $('#apMaterno').prop('disabled', false);
+  $('#nombre').val('');
+  $('#apPaterno').val('');
+  $('#apMaterno').val('');
+  });
+
+  $('#formBusqueda').on('submit', function(e) {
+  e.preventDefault();
+  $.post('Procesamiento/getBusqueda.php', $('#formBusqueda').serialize()).done(function(echo) {
+    $('.resultado').html(echo);
+    $('#modalContacto .close').click();
+  });
+  })
+</script>
